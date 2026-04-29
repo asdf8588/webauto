@@ -1,0 +1,65 @@
+# E2E 端到端流程测试用例
+# 模块: e2e
+# 使用占位符：${uuid}, ${SAME:key}
+
+- case_id: e2e.user.001
+  name: 完整流程_注册登录查询
+  description: 端到端测试：注册→登录→查询用户
+  module: e2e
+  priority: P0
+  tags: [smoke, e2e, blocker]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+  setup:
+    - action: register_login
+      name: "E2EUser_${uuid}"
+      email: "e2e_${uuid}@example.com"
+      password: "Test@123456"
+
+- case_id: e2e.user.002
+  name: 多用户独立认证
+  description: 多个注册用户可以独立登录
+  module: e2e
+  priority: P1
+  tags: [e2e, multi-user]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+  setup:
+    - action: multi_user_login
+      users:
+        - name: "MultiUser1_${uuid}"
+          email: "multi1_${uuid}@example.com"
+          password: "Test@123456"
+        - name: "MultiUser2_${uuid}"
+          email: "multi2_${uuid}@example.com"
+          password: "Test@123456"
+
+- case_id: e2e.user.003
+  name: 完整用户生命周期
+  description: 注册→登录→查询→更新→删除
+  module: e2e
+  priority: P0
+  tags: [smoke, e2e, blocker, full-flow]
+  steps:
+    - name: 注册用户
+      action: add_user
+      data:
+        email: "lifecycle_${uuid}@example.com"
+        name: "LifecycleUser_${uuid}"
+        password: "Test@123456"
+      expected:
+        status: 200
+    - name: 登录验证
+      action: login
+      email: "lifecycle_${uuid}@example.com"
+      password: "Test@123456"
+      expected:
+        status: 200
+    - name: 查询用户
+      action: get_users
+      expected:
+        status: 200

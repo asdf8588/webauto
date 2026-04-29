@@ -1,0 +1,11 @@
+- heading "✏️ 更新用户" [level=1]
+- paragraph: 完整更新或局部更新用户信息
+- text: 完整更新 (PUT) 局部更新 (PATCH) 👤 用户 ID
+- spinbutton
+- text: 📛 新名字
+- textbox "请输入新名字（1-50字符）"
+- text: 🎭 新昵称
+- textbox "请输入新昵称"
+- button "完整更新用户"
+- link "← 返回首页":
+  - /url: /

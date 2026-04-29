@@ -1,0 +1,61 @@
+# 用户查询模块测试用例
+# 模块: user
+# 接口: GET /users, GET /users/seek/{id}
+
+- case_id: user.query.001
+  name: 带Token查询_成功
+  description: 使用登录后的token查询用户列表
+  module: user
+  priority: P0
+  tags: [smoke, query, blocker]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+  requires_auth: true
+  setup:
+    - action: register_login
+      name: "QueryUser_${uuid}"
+      email: "query_${uuid}@example.com"
+      password: "Test@123456"
+
+- case_id: user.query.002
+  name: 无Token查询
+  description: 不带认证token的查询行为
+  module: user
+  priority: P2
+  tags: [query]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+
+- case_id: user.query.003
+  name: 查询指定用户详情
+  description: 查询已注册用户的详细信息
+  module: user
+  priority: P1
+  tags: [smoke, query]
+  method: GET
+  url: /users/seek/${user_id}
+  expected:
+    status: 200
+  requires_auth: true
+  setup:
+    - action: register_login
+      name: "DetailUser_${uuid}"
+      email: "detail_${uuid}@example.com"
+      password: "Test@123456"
+      capture_id: user_id
+
+- case_id: user.query.004
+  name: 查询不存在的用户
+  description: 查询不存在的用户ID应返回错误
+  module: user
+  priority: P2
+  tags: [query, validation]
+  method: GET
+  url: /users/seek/999999
+  expected:
+    status: 400
+    type: error

@@ -1,0 +1,128 @@
+[
+  {
+    "role": "paragraph",
+    "name": "",
+    "value": "完整更新或局部更新用户信息",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "text",
+    "name": "",
+    "value": "完整更新 (PUT) 局部更新 (PATCH) 👤 用户 ID",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "spinbutton",
+    "name": "",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "text",
+    "name": "",
+    "value": "📛 新名字",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "textbox",
+    "name": "请输入新名字（1-50字符）",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"textbox\", name=re.compile(r\"请输入新名字（1\\-50字符）\"))",
+        "description": "按角色'textbox' + 名称包含'请输入新名字（1-50字符）'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"textbox\", name=re.compile(r\".*请输入新名字（1\\-50字符）.*\"))",
+        "description": "按角色'textbox' + 模糊匹配"
+      },
+      {
+        "type": "get_by_label",
+        "code": "get_by_label(re.compile(r\"请输入新名字（1\\-50字符）\"))",
+        "description": "按标签文本"
+      }
+    ]
+  },
+  {
+    "role": "text",
+    "name": "",
+    "value": "🎭 新昵称",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "textbox",
+    "name": "请输入新昵称",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"textbox\", name=re.compile(r\"请输入新昵称\"))",
+        "description": "按角色'textbox' + 名称包含'请输入新昵称'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"textbox\", name=re.compile(r\".*请输入新昵称.*\"))",
+        "description": "按角色'textbox' + 模糊匹配"
+      },
+      {
+        "type": "get_by_label",
+        "code": "get_by_label(re.compile(r\"请输入新昵称\"))",
+        "description": "按标签文本"
+      }
+    ]
+  },
+  {
+    "role": "button",
+    "name": "完整更新用户",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"button\", name=re.compile(r\"完整更新用户\"))",
+        "description": "按角色'button' + 名称包含'完整更新用户'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"button\", name=re.compile(r\".*完整更新用户.*\"))",
+        "description": "按角色'button' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "link",
+    "name": "← 返回首页",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"←\\ 返回首页\"))",
+        "description": "按角色'link' + 名称包含'← 返回首页'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*返回首页.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  }
+]

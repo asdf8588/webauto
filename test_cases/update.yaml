@@ -1,0 +1,66 @@
+# 更新测试用例 - 统一版本
+# 整合自: data/user/update.yaml
+# 总计: 4条
+
+- case_id: UPDATE001
+  name: 完整更新用户_PUT
+  description: PUT方式更新所有字段
+  module: 更新模块
+  priority: P1
+  tags: [regression]
+  method: PUT
+  url: /users/{user_id}
+  body:
+    name: "updated_${AUTO_UUID}"
+    email: "updated_${AUTO_UUID}@example.com"
+  setup: create_user
+  expected:
+    status: 200
+    type: success
+  cleanup: delete_user
+
+- case_id: UPDATE002
+  name: 部分更新用户_PATCH
+  description: PATCH方式只更新部分字段
+  module: 更新模块
+  priority: P1
+  tags: [regression]
+  method: PATCH
+  url: /users/{user_id}
+  body:
+    name: "patched_${AUTO_UUID}"
+  setup: create_user
+  expected:
+    status: 200
+    type: success
+  cleanup: delete_user
+
+- case_id: UPDATE003
+  name: 更新用户_只更新邮箱
+  description: 只更新邮箱字段
+  module: 更新模块
+  priority: P2
+  tags: [validation]
+  method: PATCH
+  url: /users/{user_id}
+  body:
+    email: "patched_${AUTO_UUID}@example.com"
+  setup: create_user
+  expected:
+    status: 200
+    type: success
+  cleanup: delete_user
+
+- case_id: UPDATE004
+  name: 更新失败_不存在的用户
+  description: 更新不存在的用户应失败
+  module: 更新模块
+  priority: P2
+  tags: [validation]
+  method: PUT
+  url: /users/999999
+  body:
+    name: "updated"
+  expected:
+    status: 400
+    type: error

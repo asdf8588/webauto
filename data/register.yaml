@@ -1,0 +1,76 @@
+# 注册模块测试用例
+# 整合自: data/user/register.yaml
+
+- case_id: REG001
+  name: 注册成功_完整参数
+  description: 使用name+email+password注册
+  method: POST
+  url: /users/add
+  body:
+    name: "User_{__AUTO_UUID__}"
+    email: "complete_{__AUTO_UUID__}@example.com"
+    password: "Test@123456"
+  expected:
+    status: 200
+  rollback: true
+  allure_feature: 注册模块
+  allure_story: 正常注册
+
+- case_id: REG002
+  name: 注册成功_最小参数
+  description: 仅email+password注册
+  method: POST
+  url: /users/add
+  body:
+    email: "minimal_{__AUTO_UUID__}@example.com"
+    password: "Test@123456"
+  expected:
+    status: 400
+  allure_feature: 注册模块
+  allure_story: 最小参数
+
+- case_id: REG003
+  name: 重复邮箱注册_失败
+  description: 已存在的邮箱无法重复注册
+  method: POST
+  url: /users/add
+  body:
+    name: "DuplicateUser_{__AUTO_UUID__}"
+    email: "${SAME:dup_email}"
+    password: "Test@123456"
+  expected:
+    status: 400
+  setup:
+    - action: add_user
+      name: "DupSetup_{__AUTO_UUID__}"
+      email: "${SAME:dup_email}"
+      password: "FirstPass@123"
+  allure_feature: 注册模块
+  allure_story: 重复注册
+
+- case_id: REG004
+  name: 注册失败_缺email
+  description: 仅name+password缺少email应失败
+  method: POST
+  url: /users/add
+  body:
+    name: "minuser_{__AUTO_UUID__}"
+    password: "Test@123456"
+  expected:
+    status: 400
+  allure_feature: 注册模块
+  allure_story: 参数校验
+
+- case_id: REG005
+  name: 注册失败_密码为空
+  description: 密码为空应注册失败
+  method: POST
+  url: /users/add
+  body:
+    name: "nopass_{__AUTO_UUID__}"
+    email: "nopass_{__AUTO_UUID__}@example.com"
+    password: ""
+  expected:
+    status: 400
+  allure_feature: 注册模块
+  allure_story: 参数校验

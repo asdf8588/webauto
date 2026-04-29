@@ -1,0 +1,57 @@
+# 用户更新模块测试用例
+# 整合自: data/user/update.yaml
+
+- case_id: UPDATE001
+  name: 完整更新用户_PUT
+  description: PUT方式更新所有字段
+  method: PUT
+  url: /users/2
+  body:
+    name: "updated_{timestamp}"
+    email: "updated_{timestamp}@example.com"
+  setup: create_user
+  expected:
+    status: 200
+  cleanup: delete_user
+  allure_feature: 更新模块
+  allure_story: 完整更新
+
+- case_id: UPDATE002
+  name: 部分更新用户_PATCH
+  description: PATCH方式只更新部分字段
+  method: PATCH
+  url: /users/2
+  body:
+    name: "patched_{timestamp}"
+  setup: create_user
+  expected:
+    status: 200
+  cleanup: delete_user
+  allure_feature: 更新模块
+  allure_story: 部分更新
+
+- case_id: UPDATE003
+  name: 更新用户_只更新邮箱
+  description: 只更新邮箱
+  method: PATCH
+  url: /users/2
+  body:
+    email: "patched_{timestamp}@example.com"
+  setup: create_user
+  expected:
+    status: 200
+  cleanup: delete_user
+  allure_feature: 更新模块
+  allure_story: 更新邮箱
+
+- case_id: UPDATE004
+  name: 更新失败_不存在的用户
+  description: 更新不存在的用户应失败
+  method: PUT
+  url: /users/999999
+  body:
+    name: "updated"
+  expected:
+    status: 400
+  allure_feature: 更新模块
+  allure_story: 异常更新

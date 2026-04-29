@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试报告 - WebAuto Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #1a1f2e; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        .header { 
+            background: #132035; 
+            padding: 12px 24px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 1px solid #2d3748;
+        }
+        .header h1 { font-size: 18px; color: #60a5fa; }
+        .header a { 
+            color: #94a3b8; 
+            text-decoration: none; 
+            font-size: 14px;
+            padding: 6px 16px;
+            border: 1px solid #475569;
+            border-radius: 6px;
+        }
+        .header a:hover { background: #334155; color: #fff; }
+        .container { height: calc(100vh - 52px); width: 100%; }
+        .container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 52px);
+            flex-direction: column;
+            gap: 16px;
+        }
+        .spinner {
+            width: 40px; height: 40px;
+            border: 3px solid #2d3748;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Allure 测试报告</h1>
+        <a href="/">返回平台首页</a>
+    </div>
+    <div class="container">
+        <iframe id="report-frame" src="/allure-data/" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        // 自动刷新报告数据
+        const iframe = document.getElementById('report-frame');
+        
+        // 监听 iframe 加载错误，显示友好提示
+        iframe.onerror = function() {
+            this.parentElement.innerHTML = `
+                <div class="loading" style="color:#94a3b8;">
+                    <p style="font-size:16px;">📋 暂无测试报告</p>
+                    <p style="font-size:14px;color:#64748b;">请先执行测试用例生成报告</p>
+                </div>
+            `;
+        };
+    </script>
+</body>
+</html>

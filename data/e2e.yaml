@@ -1,0 +1,45 @@
+# 端到端测试用例
+# 整合自: data/e2e.yaml + data/user/e2e.yaml
+
+- case_id: E2E001
+  name: 完整用户流程
+  description: 注册 -> 登录 -> 获取用户列表
+  method: POST
+  url: /users/add
+  body:
+    email: "e2e_{__AUTO_UUID__}@example.com"
+    name: "e2e_{__AUTO_UUID__}"
+    password: "123456"
+  expected:
+    status: 200
+  severity: blocker
+  steps:
+    - name: 注册用户
+      action: add_user
+      data:
+        email: "e2e_{__AUTO_UUID__}@example.com"
+        name: "e2e_{__AUTO_UUID__}"
+        password: "123456"
+    - name: 登录
+      action: login
+      email: "e2e_{__AUTO_UUID__}@example.com"
+      password: "123456"
+    - name: 获取用户列表
+      action: get_users
+      expected_status: 200
+  allure_feature: E2E测试
+  allure_story: 用户全流程
+
+- case_id: E2E002
+  name: 注册后登录流程
+  description: 测试用户注册后登录功能
+  method: POST
+  url: /users/login
+  body:
+    email: "admin@example.com"
+    password: "123456"
+  expected:
+    status: 200
+  severity: normal
+  allure_feature: E2E测试
+  allure_story: 注册登录

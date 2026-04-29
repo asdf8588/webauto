@@ -1,0 +1,51 @@
+# 查询测试用例 - 统一版本
+# 整合自: data/user/query.yaml
+# 总计: 3条
+
+- case_id: QUERY001
+  name: 查询用户列表_已认证
+  description: 使用登录后的token查询用户列表
+  module: 查询模块
+  priority: P0
+  tags: [smoke, regression]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+    type: success
+  requires_auth: true
+  setup:
+    - action: register_login
+      name: "QueryUser_${AUTO_UUID}"
+      email: "query_${AUTO_UUID}@example.com"
+      password: "Test@123456"
+
+- case_id: QUERY002
+  name: 查询用户列表_未认证
+  description: 不带认证token的查询行为
+  module: 查询模块
+  priority: P2
+  tags: [validation]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+    type: success
+
+- case_id: QUERY003
+  name: 查询指定用户详情
+  description: 查询已注册用户的详细信息
+  module: 查询模块
+  priority: P1
+  tags: [regression]
+  method: GET
+  url: /users/seek/{user_id}
+  expected:
+    status: 200
+    type: success
+  requires_auth: true
+  setup:
+    - action: register_login
+      name: "DetailUser_${AUTO_UUID}"
+      email: "detail_${AUTO_UUID}@example.com"
+      password: "Test@123456"

@@ -1,0 +1,31 @@
+# 登出接口测试用例
+# 模块: login
+# 接口: POST /users/logout (后端可能不支持，返回405)
+
+- case_id: login.logout.001
+  name: 正常登出
+  description: 已登录用户登出
+  module: login
+  priority: P2
+  tags: [logout]
+  method: POST
+  url: /users/logout
+  body: {}
+  expected:
+    status: 405
+  setup:
+    - action: login
+      email: admin@example.com
+      password: "123456"
+
+- case_id: login.logout.002
+  name: 未登录登出
+  description: 未登录状态下登出
+  module: login
+  priority: P3
+  tags: [logout, validation]
+  method: POST
+  url: /users/logout
+  body: {}
+  expected:
+    status: 405

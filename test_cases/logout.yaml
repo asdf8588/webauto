@@ -1,0 +1,35 @@
+# 登出测试用例 - 统一版本
+# 整合自: data/login/logout.yaml
+# 总计: 2条
+
+- case_id: LOGOUT001
+  name: 正常登出
+  description: 已登录用户登出
+  module: 登出模块
+  priority: P2
+  tags: [regression]
+  method: POST
+  url: /users/logout
+  body: {}
+  expected:
+    status: 405
+    type: error
+    message: "Method Not Allowed"
+  preconditions:
+    - action: login
+      email: "admin@example.com"
+      password: "123456"
+
+- case_id: LOGOUT002
+  name: 未登录登出
+  description: 未登录状态下登出
+  module: 登出模块
+  priority: P3
+  tags: [validation]
+  method: POST
+  url: /users/logout
+  body: {}
+  expected:
+    status: 405
+    type: error
+    message: "Method Not Allowed"

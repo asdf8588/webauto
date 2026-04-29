@@ -1,0 +1,1 @@
+{"cookies": [], "origins": [{"origin": "http://localhost:8080", "localStorage": [{"name": "jwt_token", "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJ0ZXN0MkBleGFtcGxlLmNvbSIsImlhdCI6MTc3NjY5NDgzMywiZXhwIjoxNzc2NzgxMjMzfQ.pYD_aAamPnYXm0szV9EgjdPsZO6zDtrvbK3uks1e438"}, {"name": "user_id", "value": "3"}]}]}

@@ -1,0 +1,21 @@
+# Allure Docker Service 配置
+version: '3.8'
+
+services:
+  allure:
+    image: "allurereport/allure-docker-service:latest"
+    container_name: allure-service
+    ports:
+      - "5252:5050"
+    environment:
+      # 定期生成报告（每60秒检查一次）
+      CHECK_RESULTS_EVERY_SECONDS: 60
+      KEEP_REPORTS_OF_LAST_RUNS: 30
+      # 项目路径
+      RESULTS_FOLDER: /allure-results
+      REPORT_FOLDER: /allure-reports
+    volumes:
+      # 映射测试项目的 allure-results 目录
+      - ./allure-results:/allure-results
+      - ./allure-reports:/allure-reports
+    restart: unless-stopped

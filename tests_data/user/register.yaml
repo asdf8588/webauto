@@ -1,0 +1,88 @@
+# 用户注册模块测试用例
+# 模块: user
+# 接口: POST /users/add
+
+- case_id: user.register.001
+  name: 注册成功_完整参数
+  description: 使用name+email+password注册
+  module: user
+  priority: P0
+  tags: [smoke, register, blocker]
+  method: POST
+  url: /users/add
+  body:
+    name: "User_${uuid}"
+    email: "complete_${uuid}@example.com"
+    password: "Test@123456"
+  expected:
+    status: 200
+    type: success
+  cleanup: true
+
+- case_id: user.register.002
+  name: 注册失败_重复邮箱
+  description: 已存在的邮箱无法重复注册
+  module: user
+  priority: P1
+  tags: [smoke, register]
+  method: POST
+  url: /users/add
+  body:
+    name: "DupUser_${uuid}"
+    email: "${SAME:dup_email}"
+    password: "Test@123456"
+  expected:
+    status: 400
+    type: error
+  setup:
+    - action: add_user
+      name: "DupSetup_${uuid}"
+      email: "${SAME:dup_email}"
+      password: "FirstPass@123"
+
+- case_id: user.register.003
+  name: 注册失败_缺email
+  description: 仅name+password缺少email应失败
+  module: user
+  priority: P2
+  tags: [validation, register]
+  method: POST
+  url: /users/add
+  body:
+    name: "minuser_${uuid}"
+    password: "Test@123456"
+  expected:
+    status: 400
+    type: error
+
+- case_id: user.register.004
+  name: 注册失败_密码为空
+  description: 密码为空应注册失败
+  module: user
+  priority: P2
+  tags: [validation, register]
+  method: POST
+  url: /users/add
+  body:
+    name: "nopass_${uuid}"
+    email: "nopass_${uuid}@example.com"
+    password: ""
+  expected:
+    status: 400
+    type: error
+
+- case_id: user.register.005
+  name: 注册失败_无效邮箱格式
+  description: 邮箱格式不正确应失败
+  module: user
+  priority: P2
+  tags: [validation, register]
+  method: POST
+  url: /users/add
+  body:
+    name: "badmail_${uuid}"
+    email: "invalid-email-format"
+    password: "Test@123456"
+  expected:
+    status: 400
+    type: error

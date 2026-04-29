@@ -1,0 +1,56 @@
+[
+  {
+    "role": "link",
+    "name": "← 返回主页",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"←\\ 返回主页\"))",
+        "description": "按角色'link' + 名称包含'← 返回主页'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*返回主页.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "paragraph",
+    "name": "",
+    "value": "输入用户 ID 进行查询",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "spinbutton",
+    "name": "",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "button",
+    "name": "查询",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"button\", name=re.compile(r\"查询\"))",
+        "description": "按角色'button' + 名称包含'查询'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"button\", name=re.compile(r\".*查询.*\"))",
+        "description": "按角色'button' + 模糊匹配"
+      }
+    ]
+  }
+]

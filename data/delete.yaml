@@ -1,0 +1,37 @@
+# 用户删除模块测试用例
+# 整合自: data/user/delete.yaml
+
+- case_id: DELETE001
+  name: 删除用户_成功
+  description: 删除存在的用户
+  method: DELETE
+  url: /users/2
+  setup: create_user
+  expected:
+    status: 200
+  verify:
+    action: get_user_by_id
+    status: 400
+  allure_feature: 删除模块
+  allure_story: 正常删除
+
+- case_id: DELETE002
+  name: 删除用户_不存在
+  description: 删除不存在的用户（后端幂等，返回200）
+  method: DELETE
+  url: /users/999999
+  expected:
+    status: 200
+  allure_feature: 删除模块
+  allure_story: 删除不存在
+
+- case_id: DELETE003
+  name: 删除用户_重复删除
+  description: 删除后再删除应失败
+  method: DELETE
+  url: /users/2
+  setup: create_and_delete
+  expected:
+    status: 400
+  allure_feature: 删除模块
+  allure_story: 重复删除

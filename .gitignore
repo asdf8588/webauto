@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 测试
+allure-results/
+allure-report/
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+.tox/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 环境变量
+.env
+.env.local
+
+# 报告历史（由 GitHub Actions 管理）
+# public/  # 取消注释这行，如果你想忽略历史报告
+
+# 临时文件
+*.log
+*.tmp
+.DS_Store
+
+# 依赖
+requirements.txt
+!requirements*.txt.example

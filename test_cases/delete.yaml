@@ -1,0 +1,44 @@
+# 删除测试用例 - 统一版本
+# 整合自: data/user/delete.yaml
+# 总计: 3条
+
+- case_id: DELETE001
+  name: 删除用户_成功
+  description: 删除存在的用户
+  module: 删除模块
+  priority: P1
+  tags: [smoke, regression]
+  method: DELETE
+  url: /users/{user_id}
+  setup: create_user
+  expected:
+    status: 200
+    type: success
+  verify:
+    action: get_user_by_id
+    status: 400
+
+- case_id: DELETE002
+  name: 删除用户_不存在
+  description: 删除不存在的用户（后端幂等，返回200）
+  module: 删除模块
+  priority: P2
+  tags: [regression]
+  method: DELETE
+  url: /users/999999
+  expected:
+    status: 200
+    type: success
+
+- case_id: DELETE003
+  name: 删除用户_重复删除
+  description: 删除后再删除应失败
+  module: 删除模块
+  priority: P2
+  tags: [validation]
+  method: DELETE
+  url: /users/{user_id}
+  setup: create_and_delete
+  expected:
+    status: 400
+    type: error

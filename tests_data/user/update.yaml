@@ -1,0 +1,63 @@
+# 用户更新模块测试用例
+# 模块: user
+# 接口: PUT /users/{id}, PATCH /users/{id}
+
+- case_id: user.update.001
+  name: 完整更新用户_PUT
+  description: PUT方式更新所有字段
+  module: user
+  priority: P1
+  tags: [smoke, update]
+  method: PUT
+  url: /users/${user_id}
+  body:
+    name: "updated_${uuid}"
+    email: "updated_${uuid}@example.com"
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: add_user
+      name: "UpdateUser_${uuid}"
+      email: "update_${uuid}@example.com"
+      password: "Test@123456"
+      capture_id: user_id
+  cleanup:
+    action: delete_user
+
+- case_id: user.update.002
+  name: 部分更新用户_PATCH
+  description: PATCH方式只更新部分字段
+  module: user
+  priority: P1
+  tags: [smoke, update]
+  method: PATCH
+  url: /users/${user_id}
+  body:
+    name: "patched_${uuid}"
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: add_user
+      name: "PatchUser_${uuid}"
+      email: "patch_${uuid}@example.com"
+      password: "Test@123456"
+      capture_id: user_id
+  cleanup:
+    action: delete_user
+
+- case_id: user.update.003
+  name: 更新失败_不存在的用户
+  description: 更新不存在的用户应失败
+  module: user
+  priority: P2
+  tags: [update, validation]
+  method: PUT
+  url: /users/999999
+  body:
+    name: "updated"
+    email: "updated@test.com"
+  expected:
+    status: 400
+    type: error

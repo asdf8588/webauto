@@ -1,0 +1,6 @@
+- link "← 返回主页":
+  - /url: /index.html
+- heading "🔍 查询用户" [level=2]
+- paragraph: 输入用户 ID 进行查询
+- spinbutton
+- button "查询"

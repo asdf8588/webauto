@@ -1,0 +1,88 @@
+# 登录模块测试用例
+# 模块: login
+# 接口: POST /users/login
+
+- case_id: login.case.001
+  name: 登录成功_标准流程
+  description: 使用正确邮箱密码登录
+  module: login
+  priority: P0
+  tags: [smoke, login, blocker]
+  method: POST
+  url: /users/login
+  body:
+    email: "test2@example.com"
+    password: "123456"
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: add_user
+      email: "test2@example.com"
+      password: "123456"
+      name: "LoginTestUser"
+
+- case_id: login.case.002
+  name: 登录失败_密码错误
+  description: 使用错误密码登录应失败
+  module: login
+  priority: P1
+  tags: [smoke, login]
+  method: POST
+  url: /users/login
+  body:
+    email: "test2@example.com"
+    password: "wrong_password"
+  expected:
+    status: 400
+    type: error
+  setup:
+    - action: add_user
+      email: "test2@example.com"
+      password: "123456"
+      name: "LoginTestUser"
+
+- case_id: login.case.003
+  name: 登录失败_用户不存在
+  description: 用户不存在登录应失败
+  module: login
+  priority: P1
+  tags: [login]
+  method: POST
+  url: /users/login
+  body:
+    email: "nonexist@test.com"
+    password: "123456"
+  expected:
+    status: 400
+    type: error
+
+- case_id: login.case.004
+  name: 登录失败_空邮箱
+  description: 邮箱为空应登录失败
+  module: login
+  priority: P2
+  tags: [validation, login]
+  method: POST
+  url: /users/login
+  body:
+    email: ""
+    password: "123456"
+  expected:
+    status: 400
+    type: error
+
+- case_id: login.case.005
+  name: 登录失败_空密码
+  description: 密码为空应登录失败
+  module: login
+  priority: P2
+  tags: [validation, login]
+  method: POST
+  url: /users/login
+  body:
+    email: "test2@example.com"
+    password: ""
+  expected:
+    status: 400
+    type: error

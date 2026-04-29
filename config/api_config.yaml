@@ -1,0 +1,25 @@
+# API环境配置
+# 所有环境相关配置集中管理
+
+environments:
+  dev:
+    base_url: "http://localhost:8080"
+    timeout: 10
+  test:
+    base_url: "http://test-api.example.com"
+    timeout: 15
+  prod:
+    base_url: "http://api.example.com"
+    timeout: 20
+
+# 默认环境
+default_env: dev
+
+# 默认测试用户
+test_users:
+  admin:
+    username: "admin"
+    password: "admin123"
+  normal:
+    username: "test2@example.com"
+    password: "123456"

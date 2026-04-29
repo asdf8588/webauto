@@ -1,0 +1,53 @@
+# 端到端测试用例 - 统一版本
+# 整合自: data/user/e2e.yaml, data/e2e.yaml
+# 总计: 3条
+
+- case_id: E2E001
+  name: 完整流程_注册登录查询
+  description: 端到端测试：注册→登录→查询
+  module: 端到端模块
+  priority: P0
+  tags: [smoke, e2e, blocker]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: register_login
+      name: "E2EUser_${AUTO_UUID}"
+      email: "e2e_${AUTO_UUID}@example.com"
+      password: "Test@123456"
+
+- case_id: E2E002
+  name: 多用户独立认证
+  description: 多个注册用户可以独立登录
+  module: 端到端模块
+  priority: P1
+  tags: [e2e, regression]
+  method: GET
+  url: /users
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: multi_user_login
+      users:
+        - name: "MultiUser1_${AUTO_UUID}"
+          email: "multi1_${AUTO_UUID}@example.com"
+          password: "Test@123456"
+        - name: "MultiUser2_${AUTO_UUID}"
+          email: "multi2_${AUTO_UUID}@example.com"
+          password: "Test@123456"
+
+- case_id: E2E003
+  name: 完整用户生命周期
+  description: 用户注册→登录→查询→更新→删除
+  module: 端到端模块
+  priority: P0
+  tags: [e2e, blocker]
+  method: POST
+  url: /users/login
+  expected:
+    status: 200
+    type: success

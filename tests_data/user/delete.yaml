@@ -1,0 +1,54 @@
+# 用户删除模块测试用例
+# 模块: user
+# 接口: DELETE /users/{id}
+
+- case_id: user.delete.001
+  name: 删除用户_成功
+  description: 删除存在的用户
+  module: user
+  priority: P1
+  tags: [smoke, delete]
+  method: DELETE
+  url: /users/${user_id}
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: add_user
+      name: "DeleteUser_${uuid}"
+      email: "delete_${uuid}@example.com"
+      password: "Test@123456"
+      capture_id: user_id
+  verify:
+    action: get_user_by_id
+    status: 400
+
+- case_id: user.delete.002
+  name: 删除用户_不存在
+  description: 删除不存在的用户（后端幂等，返回200）
+  module: user
+  priority: P2
+  tags: [delete]
+  method: DELETE
+  url: /users/999999
+  expected:
+    status: 200
+    type: success
+
+- case_id: user.delete.003
+  name: 删除用户_重复删除
+  description: 删除后再删除应失败
+  module: user
+  priority: P2
+  tags: [delete, validation]
+  method: DELETE
+  url: /users/${user_id}
+  expected:
+    status: 400
+    type: error
+  setup:
+    - action: add_and_delete_user
+      name: "DelUser_${uuid}"
+      email: "del_${uuid}@example.com"
+      password: "Test@123456"
+      capture_id: user_id

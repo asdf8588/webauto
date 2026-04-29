@@ -1,0 +1,13 @@
+- link "← 返回主页":
+  - /url: /index.html
+- heading "📝 注册新用户" [level=2]
+- paragraph: 创建你的账户
+- text: 用户名 *
+- textbox "请输入用户名"
+- text: 邮箱 *
+- textbox "请输入邮箱"
+- text: 密码 *
+- textbox "请输入密码（至少3位）"
+- text: 昵称
+- textbox "选填"
+- button "立即注册"

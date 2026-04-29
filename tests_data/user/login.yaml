@@ -1,0 +1,108 @@
+# 用户登录模块测试用例
+# 模块: user
+# 接口: POST /users/login
+
+- case_id: user.login.001
+  name: 登录成功
+  description: 使用正确邮箱密码登录
+  module: user
+  priority: P0
+  tags: [smoke, login, blocker]
+  method: POST
+  url: /users/login
+  body:
+    email: "test2@example.com"
+    password: "123456"
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: add_user
+      email: "test2@example.com"
+      password: "123456"
+      name: "TestUser"
+
+- case_id: user.login.002
+  name: 登录失败_密码错误
+  description: 使用错误密码登录应失败
+  module: user
+  priority: P1
+  tags: [smoke, login]
+  method: POST
+  url: /users/login
+  body:
+    email: "test2@example.com"
+    password: "wrong_password"
+  expected:
+    status: 400
+    type: error
+  setup:
+    - action: add_user
+      email: "test2@example.com"
+      password: "123456"
+      name: "TestUser"
+
+- case_id: user.login.003
+  name: 登录失败_用户不存在
+  description: 用户不存在登录应失败
+  module: user
+  priority: P1
+  tags: [login]
+  method: POST
+  url: /users/login
+  body:
+    email: "nonexist_${uuid}@test.com"
+    password: "123456"
+  expected:
+    status: 400
+    type: error
+
+- case_id: user.login.004
+  name: 登录失败_空邮箱
+  description: 邮箱为空应登录失败
+  module: user
+  priority: P2
+  tags: [validation, login]
+  method: POST
+  url: /users/login
+  body:
+    email: ""
+    password: "123456"
+  expected:
+    status: 400
+    type: error
+
+- case_id: user.login.005
+  name: 登录失败_空密码
+  description: 密码为空应登录失败
+  module: user
+  priority: P2
+  tags: [validation, login]
+  method: POST
+  url: /users/login
+  body:
+    email: "test2@example.com"
+    password: ""
+  expected:
+    status: 400
+    type: error
+
+- case_id: user.login.006
+  name: 注册后登录_成功
+  description: 使用刚注册的用户登录
+  module: user
+  priority: P0
+  tags: [smoke, login, register, blocker]
+  method: POST
+  url: /users/login
+  body:
+    email: "${SAME:login_email}"
+    password: "${SAME:login_pwd}"
+  expected:
+    status: 200
+    type: success
+  setup:
+    - action: register_login
+      name: "LoginUser_${uuid}"
+      email: "${SAME:login_email}"
+      password: "${SAME:login_pwd}"

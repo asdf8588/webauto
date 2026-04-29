@@ -1,0 +1,30 @@
+# 登出模块测试用例
+# 整合自: data/login/logout.yaml
+
+- case_id: LOGOUT001
+  name: 正常登出
+  description: 已登录用户登出
+  method: POST
+  url: /users/logout
+  body: {}
+  expected:
+    status: 405
+  severity: normal
+  preconditions:
+    - action: login
+      email: admin@example.com
+      password: "123456"
+  allure_feature: 登出模块
+  allure_story: 正常登出
+
+- case_id: LOGOUT002
+  name: 未登录登出
+  description: 未登录状态下登出
+  method: POST
+  url: /users/logout
+  body: {}
+  expected:
+    status: 405
+  severity: low
+  allure_feature: 登出模块
+  allure_story: 未登录登出

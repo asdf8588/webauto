@@ -1,0 +1,132 @@
+[
+  {
+    "role": "paragraph",
+    "name": "",
+    "value": "Spring Boot + MySQL + JPA · MyApp_DB",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  },
+  {
+    "role": "link",
+    "name": "📝 注册用户 创建新账户",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"📝\\ 注册用户\\ 创建新账户\"))",
+        "description": "按角色'link' + 名称包含'📝 注册用户 创建新账户'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*注册用户.*创建新账户.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "link",
+    "name": "🔐 登录 登录已有账户",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"🔐\\ 登录\\ 登录已有账户\"))",
+        "description": "按角色'link' + 名称包含'🔐 登录 登录已有账户'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*登录.*登录已有账户.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "link",
+    "name": "👥 用户列表 查看所有用户",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"👥\\ 用户列表\\ 查看所有用户\"))",
+        "description": "按角色'link' + 名称包含'👥 用户列表 查看所有用户'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*用户列表.*查看所有用户.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "link",
+    "name": "🔍 查询用户 按 ID 查找",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"🔍\\ 查询用户\\ 按\\ ID\\ 查找\"))",
+        "description": "按角色'link' + 名称包含'🔍 查询用户 按 ID 查找'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*查询用户.*ID.*查找.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "link",
+    "name": "🔑 修改密码 修改账户密码",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"🔑\\ 修改密码\\ 修改账户密码\"))",
+        "description": "按角色'link' + 名称包含'🔑 修改密码 修改账户密码'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*修改密码.*修改账户密码.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "link",
+    "name": "✏️ 更新用户 完整/局部更新",
+    "value": "",
+    "attrs": {},
+    "url": null,
+    "locators": [
+      {
+        "type": "get_by_role",
+        "code": "get_by_role(\"link\", name=re.compile(r\"✏️\\ 更新用户\\ 完整/局部更新\"))",
+        "description": "按角色'link' + 名称包含'✏️ 更新用户 完整/局部更新'"
+      },
+      {
+        "type": "get_by_role_regex",
+        "code": "get_by_role(\"link\", name=re.compile(r\".*✏️.*更新用户.*完整/局部更新.*\"))",
+        "description": "按角色'link' + 模糊匹配"
+      }
+    ]
+  },
+  {
+    "role": "text",
+    "name": "",
+    "value": "\"⚡ 📋 API 接口一览 GET /users 获取所有用户 GET /users/seek/{id} 按 ID 查询用户 GET /users/check/{id} 检查用户是否存在 GET /users/allowed 获取允许的 HTTP 方法 POST /users/add 注册新用户 POST /users/login 用户登录 PUT /users/password 修改密码 PUT /users/{id} 完整更新用户 PATCH /users/{id} 局部更新用户 DELETE /users/{id} 删除用户 服务地址：localhost:8080 · MySQL: myapp_db\"",
+    "attrs": {},
+    "url": null,
+    "locators": []
+  }
+]

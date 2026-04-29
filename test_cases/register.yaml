@@ -1,0 +1,88 @@
+# 注册测试用例 - 统一版本
+# 整合自: data/user/register.yaml
+# 总计: 5条
+
+- case_id: REG001
+  name: 注册成功_完整参数
+  description: 使用name+email+password注册
+  module: 注册模块
+  priority: P0
+  tags: [smoke, blocker, regression]
+  method: POST
+  url: /users/add
+  body:
+    name: "User_${AUTO_UUID}"
+    email: "complete_${AUTO_UUID}@example.com"
+    password: "Test@123456"
+  expected:
+    status: 200
+    type: success
+  rollback: true
+
+- case_id: REG002
+  name: 注册失败_缺少name
+  description: 仅email+password缺少name应成功（name可选）
+  module: 注册模块
+  priority: P2
+  tags: [regression, validation]
+  method: POST
+  url: /users/add
+  body:
+    email: "minimal_${AUTO_UUID}@example.com"
+    password: "Test@123456"
+  expected:
+    status: 200
+    type: success
+
+- case_id: REG003
+  name: 注册失败_重复邮箱
+  description: 已存在的邮箱无法重复注册
+  module: 注册模块
+  priority: P1
+  tags: [regression, validation]
+  method: POST
+  url: /users/add
+  body:
+    name: "DuplicateUser_${AUTO_UUID}"
+    email: "${SAME:dup_email}"
+    password: "Test@123456"
+  expected:
+    status: 400
+    type: error
+  setup:
+    - action: add_user
+      name: "DupSetup_${AUTO_UUID}"
+      email: "${SAME:dup_email}"
+      password: "FirstPass@123"
+  cleanup: true
+
+- case_id: REG004
+  name: 注册失败_缺email
+  description: 仅name+password缺少email应失败
+  module: 注册模块
+  priority: P1
+  tags: [validation, regression]
+  method: POST
+  url: /users/add
+  body:
+    name: "minuser_${AUTO_UUID}"
+    password: "Test@123456"
+  expected:
+    status: 400
+    type: error
+
+- case_id: REG005
+  name: 注册失败_密码为空
+  description: 密码为空应注册失败
+  module: 注册模块
+  priority: P1
+  tags: [validation, regression]
+  method: POST
+  url: /users/add
+  body:
+    name: "nopass_${AUTO_UUID}"
+    email: "nopass_${AUTO_UUID}@example.com"
+    password: ""
+  expected:
+    status: 400
+    type: error

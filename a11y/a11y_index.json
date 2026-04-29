@@ -1,0 +1,15 @@
+- heading "🗄️ 用户管理系统" [level=1]
+- paragraph: Spring Boot + MySQL + JPA · MyApp_DB
+- link "📝 注册用户 创建新账户":
+  - /url: /addUser.html
+- link "🔐 登录 登录已有账户":
+  - /url: /login.html
+- link "👥 用户列表 查看所有用户":
+  - /url: /users.html
+- link "🔍 查询用户 按 ID 查找":
+  - /url: /userInfo.html
+- link "🔑 修改密码 修改账户密码":
+  - /url: /updatePassword.html
+- link "✏️ 更新用户 完整/局部更新":
+  - /url: /updateUser.html
+- text: "⚡ 📋 API 接口一览 GET /users 获取所有用户 GET /users/seek/{id} 按 ID 查询用户 GET /users/check/{id} 检查用户是否存在 GET /users/allowed 获取允许的 HTTP 方法 POST /users/add 注册新用户 POST /users/login 用户登录 PUT /users/password 修改密码 PUT /users/{id} 完整更新用户 PATCH /users/{id} 局部更新用户 DELETE /users/{id} 删除用户 服务地址：localhost:8080 · MySQL: myapp_db"
